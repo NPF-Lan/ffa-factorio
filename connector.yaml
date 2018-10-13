@@ -1,0 +1,26 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  labels:
+    app: factorio-connector
+  name: factorio-connector
+spec:
+  containers:
+  - name: factorio-connector
+    image: ubuntu
+    command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+    imagePullPolicy: Always
+    resources:
+      requests:
+        memory: "1000Mi"
+        cpu: "1"
+      limits:
+        memory: "2000Mi"
+        cpu: "1"
+    volumeMounts:
+    - mountPath: /factorio
+      name: factorio-vl
+  volumes:
+  - name: factorio-vl
+    persistentVolumeClaim:
+        claimName: factorio-pv-claim
