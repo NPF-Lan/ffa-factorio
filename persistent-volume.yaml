@@ -1,0 +1,21 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: factorio-pv
+  labels:
+    type: iscsi
+    app: factorio
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  capacity:
+    storage: 14Gi
+  accessModes:
+    - ReadWriteOnce
+  iscsi:
+    targetPortal: 10.100.201.220:3260
+    portals: ['10.100.201.220:3260', '10.100.201.230:3260', '10.100.202.220:3260', '10.100.202.230:3260']
+    iqn: iqn.1986-03.com.hp:storage.p2000g3.1022db2a48
+    lun: 80
+    fsType: ext4
+    readOnly: false
